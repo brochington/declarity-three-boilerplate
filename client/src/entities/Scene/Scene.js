@@ -1,22 +1,32 @@
 /** @jsx Declarity.createEntity */
 import Declarity from 'declarity'
-// import
+import * as THREE from 'three'
 
 class Scene {
-    create = ({context}) => {
-        console.log('Scene create')
-        const {actions} = context;
+    getChildContext = ({state}) => {
+        const {scene} = state;
 
-        actions.createScene('myScene')
+        return {
+            scene
+        }
+    }
+
+    create = ({context}) => {
+        console.log('Scene create', context)
+        // const {actions} = context;
+        const scene = new THREE.Scene()
+
+        // scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
+
+        return {scene}
+        // actions.createScene('myScene')
     }
 
     update = (stuff) => {
-        console.log('Scene update!', stuff);
+        // console.log('Scene update!', stuff);
     }
 
-    // render = () => {
-    //
-    // }
+    render = ({children}) => children
 }
 
 export default Scene

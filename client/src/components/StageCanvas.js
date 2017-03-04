@@ -25,12 +25,12 @@ class StageCanvas extends AbstractComponent {
         return this.context;
     }
 
-    onCanvasLoad = (el) => {
+    onContainerLoad = (el) => {
         // will need to pass through some kind of callback so the
         // state tree within Declarity will be called.
 
         Declarity.register(Declarity.createEntity(Stage, {
-            canvasEl: el,
+            containerEl: el,
             cbRetriever: this.getStageSetState
         }))
     }
@@ -41,8 +41,8 @@ class StageCanvas extends AbstractComponent {
         return (
             <div>
                 StageCanvas component
-                <div>
-                    <canvas ref={this.onCanvasLoad} id="stage-canvas"/>
+                <div ref={this.onContainerLoad} id="container">
+                    {/* <canvas ref={this.onCanvasLoad} id="stage-canvas"/> */}
                 </div>
             </div>
         )
