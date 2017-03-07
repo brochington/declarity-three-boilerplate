@@ -109,15 +109,16 @@ class Stage {
         const timeArray = appState.getIn(['audio', 'timeArray'], [])
 
         // console.log(state.osc);
-        const cubes = [...Array(Math.floor(400))].map((k, i) => i).map((num) => {
-            const x = state.osc + Math.floor(num / 15)
-            // const x = num / 4
-            const y = (Math.floor(num % 10)) / 2
-            // const y = freqArray[num] / 50
+        const cubes = [...Array(Math.floor(state.count % 200))].map((k, i) => i).map((num) => {
+        // const cubes = [...Array(Math.floor(400))].map((k, i) => i).map((num) => {
+            // const x = state.osc + Math.floor(num / 15)
+            const x = num / 4
+            // const y = (Math.floor(num % 10)) / 2
+            const y = freqArray[num] / 50
             // const y = num * state.osc * 0.1
             const col = ((timeArray[num] - 64) / 128)
-            return <Cube key={`cube_${num}`} systems={[RotateSystem, positionSystem(x, y, y)]} />
-            // return <Cube key={`cube_${num}`} systems={[RotateSystem, positionSystem(x, y, 0), colorSystem(col, col, col)]} />
+            // return <Cube key={`cube_${num}`} systems={[RotateSystem, positionSystem(x, y, y)]} />
+            return <Cube key={`cube_${num}`} systems={[RotateSystem, positionSystem(x, y, 0), colorSystem(col, col, col)]} />
         })
 
         return [
