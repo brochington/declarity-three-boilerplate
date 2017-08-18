@@ -1,3 +1,3 @@
-import Stage from './Stage'
+import Stage from './Stage.dsx'
 
 export default Stage

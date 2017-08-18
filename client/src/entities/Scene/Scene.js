@@ -19,10 +19,6 @@ class Scene {
         return {scene}
     }
 
-    update = (stuff) => {
-        // console.log('Scene update!', stuff);
-    }
-
     render = ({children}) => children
 }
 

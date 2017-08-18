@@ -13,7 +13,7 @@ class PerspectiveCamera {
 
         const camera = new THREE.PerspectiveCamera(36, window.innerWidth / window.innerHeight, 0.25, 16)
         camera.position.set(10, 1, 15)
-        console.log('gonna set?', camera);
+
         actions.setCamera(camera)
 
         return {camera}
