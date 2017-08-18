@@ -19,24 +19,25 @@
   "homepage": "https://github.com/brochington/declarity-three-boilerplate#readme",
   "devDependencies": {
     "babel-core": "^6.21.0",
-    "babel-loader": "^6.2.10",
+    "babel-loader": "^7.1.1",
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-plugin-transform-object-rest-spread": "^6.20.2",
     "babel-preset-env": "^1.1.8",
     "babel-preset-react": "^6.16.0",
-    "koa-webpack": "^0.1.10",
+    "declarity-loader": "^0.0.4",
+    "koa-webpack": "^1.0.0",
     "react-hot-loader": "^3.0.0-beta.6",
-    "webpack": "^2.2.0-rc.3"
+    "webpack": "^3.5.5"
   },
   "dependencies": {
     "babel-plugin-transform-runtime": "^6.23.0",
-    "declarity": "^0.0.1",
+    "declarity": "^0.2.4",
     "immutable": "^3.8.1",
     "koa": "^2.0.0-alpha.7",
     "koa-router": "^7.1.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "staction": "^1.0.1",
-    "three": "^0.84.0"
+    "three": "^0.87.0"
   }
 }

@@ -9,40 +9,50 @@ const noop = () => {}
 
 class StageCanvas extends AbstractComponent {
     entitySetState = noop
+    stage = Stage
+    onContainerLoad = (el) => {
 
-    getStageSetState = (entitySetState) => {
-        this.entitySetState = entitySetState
-
-        // window.setInterval(() => {
-        //     this.forceUpdate()
-        // }, 2000)
+        this.containerEl = el;
+        // this.setState({})
+        this.context.actions.setCanvas(el)
         // this.forceUpdate()
+        // Declarity.register(Declarity.createEntity(Stage, {
+        //     containerEl: el,
+        //     cbRetriever: this.getStageSetState,
+        //     key: 'myStage'
+        // }), this.context)
 
-        // window.setTimeout(() => {
-        //     this.forceUpdate()
-        // }, 1000)
-
-        return this.context;
+        if (module.hot) {
+            console.log('Accepted??');
+            module.hot.accept('../entities/Stage', (stuff) => {
+                console.log('maybe....', stuff);
+                this.stage = require('../entities/Stage')
+                console.log(this.stage, 'yo')
+                // const newStage = require(stuff[0]);
+                // Declarity.register(Declarity.createEntity(newStage, {
+                //     containerEl: el,
+                //     cbRetriever: this.getStageSetState,
+                //     key: 'myStage'
+                // }), this.context)
+            })
+        }
     }
 
-    onContainerLoad = (el) => {
-        // will need to pass through some kind of callback so the
-        // state tree within Declarity will be called.
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        const {appState} = nextContext;
 
-        Declarity.register(Declarity.createEntity(Stage, {
-            containerEl: el,
-            cbRetriever: this.getStageSetState
-        }))
+        if (appState.has('canvas')) {
+            Declarity.register(Declarity.createEntity(this.stage, {
+                containerEl: appState.get('canvas'),
+                key: 'myStage'
+            }), nextContext)
+        }
     }
 
     render() {
-        this.entitySetState(this.context)
-
         return (
             <div>
-                StageCanvas component
                 <div ref={this.onContainerLoad} id="container">
-                    {/* <canvas ref={this.onCanvasLoad} id="stage-canvas"/> */}
                 </div>
             </div>
         )

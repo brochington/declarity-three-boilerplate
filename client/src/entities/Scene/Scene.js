@@ -1,4 +1,3 @@
-/** @jsx Declarity.createEntity */
 import Declarity from 'declarity'
 import * as THREE from 'three'
 
@@ -12,14 +11,12 @@ class Scene {
     }
 
     create = ({context}) => {
-        console.log('Scene create', context)
-        // const {actions} = context;
+        console.log('Scene create')
+        const {actions} = context;
         const scene = new THREE.Scene()
 
-        // scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
-
+        actions.setScene(scene)
         return {scene}
-        // actions.createScene('myScene')
     }
 
     update = (stuff) => {

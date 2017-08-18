@@ -1,0 +1,157 @@
+import Declarity from 'declarity'
+import * as THREE from 'three'
+
+import Raycaster from '../Raycaster'
+import Cube from '../Cube'
+
+const RotateSystem = {
+    update: ({state}) => {
+        const {cube, line} = state;
+
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        line.rotation.x += 0.01;
+        line.rotation.y += 0.01;
+    }
+}
+
+const positionSystem = (x, y, z) => {
+    return {
+        create: ({state}) => {
+            const {cube, line} = state;
+
+            cube.position.x = x;
+            cube.position.y = y;
+            cube.position.z = z;
+
+            line.position.x = x;
+            line.position.y = y;
+            line.position.z = z;
+        },
+
+        update: ({state}) => {
+            const {cube, line} = state;
+
+            cube.position.x = x;
+            cube.position.y = y;
+            cube.position.z = z;
+
+            line.position.x = x;
+            line.position.y = y;
+            line.position.z = z;
+        }
+    }
+}
+
+const colorSystem = (r, g, b) => {
+    return {
+        create: ({state}) => {
+            const {line} = state;
+
+            line.material.color.r = r;
+            line.material.color.b = b;
+            line.material.color.g = g;
+        },
+
+        update: ({state}) => {
+            const {line, cube} = state;
+
+            line.material.color.r = r;
+            line.material.color.b = b;
+            line.material.color.g = g;
+
+
+            cube.material.color.r = r;
+            cube.material.color.b = g;
+            cube.material.color.g = b;
+        }
+    }
+}
+
+const intersected = (system) => {
+    return {
+        update: (params) => {
+            const {context, state} = params
+            const {intersects} = context
+            const {cube, line} = state
+
+            cube.material.color.r = 0;
+            cube.material.color.b = 0;
+            cube.material.color.g = 1;
+
+            intersects.map(intersected => {
+                if (intersected.object == cube || intersected.object == line) {
+                    system.update(params)
+
+                }
+            })
+        }
+    }
+}
+
+const onIntersected = {
+    update: ({state}) => {
+        const {cube, line} = state;
+
+        cube.material.color.r = 0;
+        cube.material.color.b = 0.24;
+        cube.material.color.g = 0.70;
+
+        line.material.color.r = 0;
+        line.material.color.b = 0.24;
+        line.material.color.g = 0.70;
+
+    }
+}
+
+class SceneContent {
+    create = () => {
+        return {count: 0, osc: 0};
+    }
+
+    update = ({state}) => {
+        return {
+            count: state.count + 1
+        }
+    }
+
+    render = ({context, state}) => {
+        const {appState} = context;
+
+        if (appState.has('light') && appState.has('camera')) {
+            const freqArray = appState.getIn(['audio', 'freqArray'], [])
+            const timeArray = appState.getIn(['audio', 'timeArray'], [])
+            // const num = parseInt((Math.random() * 1000) + 1)
+            const cubes = [...Array(100)].map((k, i) => i).map((num) => {
+            // const cubes = [...Array(num)].map((k, i) => i).map((num) => {
+            // const cubes = [...Array(state.count % 100)].map((k, i) => i).map((num) => {
+                const x = num / 4
+                const y = freqArray[num] / 50
+                // const col = ((timeArray[num] - 64) / 128)
+
+                // return [...Array(10)].map((k, i) => i).map((num2) => {
+                //     return (
+                //         <Cube key={`cube_${num}-${num2}`} systems={[colorSystem(num / 80, num2 / 60, 1), RotateSystem, positionSystem(num / 4, y + num2 / 4, 0), intersected(onIntersected)]}>
+                //
+                //         </Cube>
+                //     )
+                // })
+                return (
+                    <Cube key={`cube_${num}`} systems={[RotateSystem, positionSystem(x, y, 0), intersected(onIntersected)]}>
+
+                    </Cube>
+                )
+            })
+
+            return (
+                <Raycaster key="raycaster-1">
+                    {cubes}
+                </Raycaster>
+            )
+        }
+
+        return [];
+    }
+}
+
+export default SceneContent
