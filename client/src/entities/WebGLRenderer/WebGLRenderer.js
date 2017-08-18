@@ -1,4 +1,3 @@
-/** @jsx Declarity.createEntity */
 import Declarity from 'declarity'
 import * as THREE from 'three'
 
@@ -13,7 +12,6 @@ class WebGLRenderer {
         let renderer = new THREE.WebGLRenderer()
         renderer.setSize(window.innerWidth, window.innerHeight)
         props.container.appendChild(renderer.domElement)
-
 
         return {renderer}
     }

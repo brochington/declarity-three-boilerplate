@@ -76,7 +76,7 @@ const intersected = (system) => {
             const {cube, line} = state
 
             cube.material.color.r = 0;
-            cube.material.color.b = 0;
+            cube.material.color.b = 1;
             cube.material.color.g = 1;
 
             intersects.map(intersected => {
@@ -131,15 +131,17 @@ class SceneContent {
 
                 // return [...Array(10)].map((k, i) => i).map((num2) => {
                 //     return (
-                //         <Cube key={`cube_${num}-${num2}`} systems={[colorSystem(num / 80, num2 / 60, 1), RotateSystem, positionSystem(num / 4, y + num2 / 4, 0), intersected(onIntersected)]}>
-                //
-                //         </Cube>
+                //         <Cube
+                //           key={`cube_${num}-${num2}`}
+                //           systems={[colorSystem(num / 80, num2 / 60, 1), RotateSystem, positionSystem(num / 4, y + num2 / 4, 0), intersected(onIntersected)]}
+                //         />
                 //     )
                 // })
                 return (
-                    <Cube key={`cube_${num}`} systems={[RotateSystem, positionSystem(x, y, 0), intersected(onIntersected)]}>
-
-                    </Cube>
+                    <Cube
+                      key={`cube_${num}`}
+                      systems={[colorSystem(num / y, y / 2, y / 2), RotateSystem, positionSystem(x, y, 0), intersected(onIntersected)]}
+                    />
                 )
             })
 

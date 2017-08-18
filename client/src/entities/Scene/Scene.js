@@ -11,7 +11,6 @@ class Scene {
     }
 
     create = ({context}) => {
-        console.log('Scene create')
         const {actions} = context;
         const scene = new THREE.Scene()
 
